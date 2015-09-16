@@ -116,6 +116,18 @@ StringVal KnuthVarianceFinalize(FunctionContext* context, const StringVal& val);
 // and the return type changed to DoubleVal in Impala 2.0
 StringVal StdDevFinalize(FunctionContext* context, const StringVal& val);
 
+void SumOfSquaresInit(FunctionContext* context, BigIntVal* val);
+void SumOfSquaresInit(FunctionContext* context, DoubleVal* val);
+
+void SumOfSquaresUpdate(FunctionContext* context, const BigIntVal& input, BigIntVal* val);
+void SumOfSquaresUpdate(FunctionContext* context, const DoubleVal& input, DoubleVal* val);
+
+void SumOfSquaresMerge(FunctionContext* context, const BigIntVal& src, BigIntVal* dst);
+void SumOfSquaresMerge(FunctionContext* context, const DoubleVal& src, DoubleVal* dst);
+
+BigIntVal SumOfSquaresFinalize(FunctionContext* context, const BigIntVal& val);
+DoubleVal SumOfSquaresFinalize(FunctionContext* context, const DoubleVal& val);
+
 // Utility function for serialization to StringVal
 // TODO: this will be unnecessary in Impala 2.0, when we will no longer have to serialize
 // results to StringVals in order to match the intermediate type

@@ -178,3 +178,35 @@ StringVal StringConcatFinalize(FunctionContext* context, const StringVal& val) {
   context->Free(val.ptr);
   return result;
 }
+
+void SumOfSquaresInit(FunctionContext* context, BigIntVal* val) {
+  val->is_null = false;
+  val->val = 0;
+}
+void SumOfSquaresInit(FunctionContext* context, DoubleVal* val) {
+  val->is_null = false;
+  val->val = 0.0;
+}
+
+void SumOfSquaresUpdate(FunctionContext* context, const BigIntVal& input, BigIntVal* val) {
+  if (input.is_null) return;
+  val->val += input.val * input.val;
+}
+void SumOfSquaresUpdate(FunctionContext* context, const DoubleVal& input, DoubleVal* val) {
+  if (input.is_null) return;
+  val->val += input.val * input.val;
+}
+
+void SumOfSquaresMerge(FunctionContext* context, const BigIntVal& src, BigIntVal* dst) {
+  dst->val += src.val;
+}
+void SumOfSquaresMerge(FunctionContext* context, const DoubleVal& src, DoubleVal* dst) {
+  dst->val += src.val;
+}
+
+BigIntVal SumOfSquaresFinalize(FunctionContext* context, const BigIntVal& val) {
+  return val;
+}
+DoubleVal SumOfSquaresFinalize(FunctionContext* context, const DoubleVal& val) {
+  return val;
+}
